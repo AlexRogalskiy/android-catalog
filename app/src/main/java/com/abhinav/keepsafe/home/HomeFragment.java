@@ -1,0 +1,176 @@
+package com.abhinav.keepsafe.home;
+
+import android.content.Context;
+import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+
+import androidx.annotation.Nullable;
+import androidx.appcompat.widget.Toolbar;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+import com.abhinav.keepsafe.BaseActivity;
+import com.abhinav.keepsafe.BaseFragment;
+import com.abhinav.keepsafe.R;
+import com.abhinav.keepsafe.adapter.CTAAdapter;
+import com.abhinav.keepsafe.home.category.CategoryFragment;
+import com.abhinav.keepsafe.home.category.bank.add.AddBankFragment;
+import com.abhinav.keepsafe.home.category.ecommerce.add.AddECommerceFragment;
+import com.abhinav.keepsafe.home.category.email.add.AddEmailFragment;
+import com.abhinav.keepsafe.home.category.socialnetwork.add.AddSocialNetworkFragment;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.hlab.fabrevealmenu.listeners.OnFABMenuSelectedListener;
+import com.hlab.fabrevealmenu.view.FABRevealMenu;
+
+import java.util.List;
+
+/**
+ * Created by Abhinav on 13/05/17.
+ */
+public class HomeFragment extends BaseFragment implements HomeView, OnFABMenuSelectedListener, CTAAdapter.OnItemClick {
+
+    private Context context;
+    private RecyclerView recyclerView;
+    private Toolbar toolbar;
+    private FloatingActionButton fab;
+    private FABRevealMenu fabRevealMenu;
+    private HomePresenter mPresenter;
+    private View sharedElementView;
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        this.context = context;
+    }
+
+    @Nullable
+    @Override
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
+        mPresenter = new HomePresenter(this);
+        return inflater.inflate(R.layout.fragment_home, container, false);
+    }
+
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        setupUI(view);
+        setupToolbar(toolbar);
+        setToolbarTitle(R.string.app_name);
+        setHasOptionsMenu(true);
+        mPresenter.initView();
+
+    }
+
+    private void setupUI(View view) {
+        toolbar = view.findViewById(R.id.toolbar);
+        recyclerView = view.findViewById(R.id.rv_ctas);
+        fab = view.findViewById(R.id.fab);
+        fabRevealMenu = view.findViewById(R.id.fabMenu);
+        recyclerView.setLayoutManager(new LinearLayoutManager(context));
+
+        try {
+            if (fab != null && fabRevealMenu != null) {
+                fabRevealMenu.bindAnchorView(fab);
+                fabRevealMenu.setOnFABMenuSelectedListener(this);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+//    @Override
+//    public void showCategories() {
+//        List<Category> categories = mPresenter.fetchAllCategories();
+//        if (categories!=null && categories.size() > 0) {
+//
+//            if (ivNoView.getVisibility() == View.VISIBLE)
+//                ivNoView.setVisibility(View.GONE);
+//            if (recyclerView.getVisibility() == View.GONE)
+//                recyclerView.setVisibility(View.VISIBLE);
+//        } else {
+//            recyclerView.setVisibility(View.GONE);
+//            ivNoView.setVisibility(View.VISIBLE);
+//        }
+//    }
+
+    @Override
+    public void showAllCTAs(List<String> ctaList) {
+        recyclerView.setAdapter(getCTAAdapter(ctaList));
+    }
+
+    private CTAAdapter getCTAAdapter(List<String> ctaLists) {
+        return new CTAAdapter(context, ctaLists, this);
+    }
+
+    @Override
+    public void delegateClickEvent(View view, int position) {
+        sharedElementView = view;
+        onCTAClicked(position);
+    }
+
+    @Override
+    public void onCTAClicked(int position) {
+        mPresenter.showCategoryFragment(position);
+    }
+
+    @Override
+    public void navigateToCategoryFragment(int position) {
+        ((BaseActivity) context).addFragmentWithBackStackAndSharedElement(getFragmentManager(),
+                this, CategoryFragment.getInstance(position),
+                R.id.frame_container, CategoryFragment.class.getSimpleName(), sharedElementView);
+        sharedElementView = null;
+    }
+
+    @Override
+    public void showAddBankFragment() {
+        ((BaseActivity) context).addFragmentWithBackStack(getFragmentManager(), new AddBankFragment(),
+                R.id.frame_container, AddBankFragment.class.getSimpleName());
+    }
+
+    @Override
+    public void showAddEmailFragment() {
+        ((BaseActivity) context).addFragmentWithBackStack(getFragmentManager(), new AddEmailFragment(),
+                R.id.frame_container, AddEmailFragment.class.getSimpleName());
+    }
+
+    @Override
+    public void showAddSocialNetworkFragment() {
+        ((BaseActivity) context).addFragmentWithBackStack(getFragmentManager(), new AddSocialNetworkFragment(),
+                R.id.frame_container, AddSocialNetworkFragment.class.getSimpleName());
+    }
+
+    @Override
+    public void showECommerceFragment() {
+        ((BaseActivity) context).addFragmentWithBackStack(getFragmentManager(), new AddECommerceFragment(),
+                R.id.frame_container, AddECommerceFragment.class.getSimpleName());
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        mPresenter.detachView();
+    }
+
+    @Override
+    public void onMenuItemSelected(View view, int id) {
+        switch (id) {
+            case R.id.action_bank:
+                mPresenter.onAddBankClicked();
+                break;
+            case R.id.action_email:
+                mPresenter.onAddEmailClicked();
+                break;
+            case R.id.action_social_network:
+                mPresenter.onAddSocialNetworkClicked();
+                break;
+            case R.id.action_ecommerce:
+                mPresenter.onAddECommerceClicked();
+                break;
+            case R.id.action_others:
+                mPresenter.onAddOthersClicked();
+                break;
+        }
+    }
+}

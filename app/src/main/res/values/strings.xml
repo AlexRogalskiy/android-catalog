@@ -1,0 +1,66 @@
+<resources>
+    <string name="app_name">KeepSafe</string>
+    <string name="confirm_pin_string">CONFIRM PIN</string>
+    <string name="choose_pin_string">CREATE NEW PIN</string>
+    <string name="enter_pin_string">ENTER PIN</string>
+    <string name="invalid_pin_msg">INVALID PIN</string>
+    <string name="pin_mismatch">PIN MISMATCH</string>
+    <string name="pin_saved_successfully">PIN SAVED</string>
+    <string name="login_success">LOGIN SUCCESSFUL</string>
+    <string name="add_category">Add Category</string>
+    <string name="home_fragment_title">CATEGORIES</string>
+    <string name="options_menu_item_bank">Bank</string>
+    <string name="options_menu_item_email">eMail</string>
+    <string name="options_menu_item_social_network">Social</string>
+    <string name="options_menu_item_others">Others</string>
+    <string name="options_menu_item_ecommerce">eCommerce</string>
+    <string name="category_bank">BANK</string>
+    <string name="category_email">EMAIL</string>
+    <string name="category_social_network">SOCIAL NETWORK</string>
+    <string name="category_e_commerce">E-COMMERCE</string>
+    <string name="category_others">OTHERS</string>
+    <string name="hint_bank_name">Bank Name</string>
+    <string name="hint_account_number">Account Number</string>
+    <string name="hint_debit_card_number">Debit Card Number</string>
+    <string name="hint_credit_card_number">Credit Card Number</string>
+    <string name="hint_debit_card_pin">Debit Card Pin</string>
+    <string name="hint_credit_card_pin">Credit Card Pin</string>
+    <string name="hint_net_banking_id">Net Banking Login Id</string>
+    <string name="hint_net_banking_password">Net Banking Password</string>
+    <string name="save">SAVE</string>
+    <string name="edit">EDIT</string>
+    <string name="hint_email_id">Email ID</string>
+    <string name="hint_email_password">Email Password</string>
+    <string name="hint_recovery_email">Recovery Email</string>
+    <string name="hint_platform_name">Email Client Name (eg. Gmail, Yahoo.)</string>
+    <string name="invalid_email">Incorrect Email Id</string>
+    <string name="invalid_email_password">Incorrect Password</string>
+    <string name="invalid_recovery_email">Invalid Recovery Email</string>
+    <string name="invalid_platform">Invalid Email Client</string>
+    <string name="invalid_bank_name">Incorrect Bank Name</string>
+    <string name="invalid_account_number">Invalid Account Number</string>
+    <string name="invalid_cc_number">Invalid Credit Card Number</string>
+    <string name="invalid_debit_card_number">Invalid Debit Card Number</string>
+    <string name="invalid_cc_pin">Invalid Credit Card Pin</string>
+    <string name="invalid_debit_card_pin">Invalid Debit Card Pin</string>
+    <string name="invalid_net_banking_id">Invalid Net Banking Id</string>
+    <string name="invalid_net_banking_password">Invalid Net Banking Password</string>
+    <string name="hint_social_network_name">Social Network Platform</string>
+    <string name="hint_social_network_password">Social Network Password</string>
+    <string name="hint_email_id_used">Email Id Used for SignIn</string>
+    <string name="hint_user_name">Username (if Any)</string>
+    <string name="invalid_social_platform">Invalid Social Platform Name</string>
+    <string name="hint_ecommerce_name">E-Commerce Platform Name</string>
+    <string name="hint_ecommerce_password">E-Commerce Password</string>
+    <string name="update">UPDATE</string>
+    <string name="category_image">category_image</string>
+    <string name="tile_service_label">KeepSafe Service</string>
+
+    <!-- Account Types-->
+    <string-array name="account_types">
+        <item name="savings">SAVINGS A/C</item>
+        <item name="current">CURRENT A/C</item>
+        <item name="demat">DEMAT A/C</item>
+    </string-array>
+
+</resources>
